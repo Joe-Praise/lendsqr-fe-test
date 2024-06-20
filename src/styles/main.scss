@@ -1,0 +1,20 @@
+// utils
+@import './utils/variables';
+@import './utils/mixin';
+
+// base
+@import './base/base';
+
+// components
+@import './components/formInput';
+@import './components/header';
+@import './components/sidebar';
+@import './components/mainContent';
+
+// layout
+@import './layout/dashboard';
+
+// pages
+@import './pages/auth.scss';
+@import './pages/dashboard__users.scss';
+@import './pages/dashboard__user__deatils.scss';

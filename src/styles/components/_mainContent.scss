@@ -1,0 +1,35 @@
+.dashboard {
+	&__main--content {
+		flex: 1;
+		background-color: $background;
+		width: 100%;
+		height: 88.7vh;
+		max-height: 100vh;
+		overflow-y: auto;
+		padding: 20px;
+	}
+}
+
+@media (min-width: 640px) {
+	.dashboard {
+		&__main--content {
+			padding: 30px;
+		}
+	}
+}
+
+@media (min-width: 1024px) {
+	.dashboard {
+		&__main--content {
+			padding: 30px 50px;
+		}
+	}
+}
+
+@media (min-width: 1280px) {
+	.dashboard {
+		&__main--content {
+			padding: 40px 60px;
+		}
+	}
+}

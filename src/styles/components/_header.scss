@@ -1,0 +1,300 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	&__logo {
+		flex-basis: 20%;
+		.dashboard__logo {
+			width: 104px;
+			height: 36px;
+		}
+	}
+
+	&__search {
+		margin-right: unset;
+		display: none;
+		&--form {
+			width: 400px;
+			// border: 2px solid;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+
+			input {
+				background-color: #ffffff;
+				border: 1px solid #ccc;
+				border-radius: 8px 0px 0px 8px;
+				outline: none;
+				font-weight: 500;
+				font-size: 14px;
+				height: 100%;
+				flex-basis: 90%;
+				padding: 0 12px;
+				&::placeholder {
+					font-size: 14px;
+					line-height: 24px;
+					color: var(--light-gray);
+					opacity: 0.6;
+				}
+			}
+
+			button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-basis: 10%;
+				height: 100%;
+				width: 100%;
+				background: $secondary;
+				outline: none;
+				border: none;
+				border-radius: 0px 8px 8px 0px;
+				img {
+					color: #ffffff;
+					width: 13.97px;
+					height: 14px;
+				}
+			}
+		}
+	}
+
+	&__profile {
+		&--wrapper {
+			display: flex;
+			flex-basis: 18%;
+			justify-content: space-between;
+			align-items: center;
+			gap: 5%;
+		}
+
+		&--docs {
+			display: none;
+			color: $tertiary;
+			text-decoration: underline;
+			text-underline-offset: 2px;
+			font-weight: 500;
+		}
+
+		&--alert {
+			display: none;
+			width: 26px;
+			height: 26px;
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&--container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-basis: 40%;
+			gap: 2%;
+			font-weight: 500;
+			.header__profile__pic {
+				width: 48px;
+				height: 48px;
+				border-radius: 50%;
+				overflow: hidden;
+				img {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	&__menu--container {
+		button {
+			border: none;
+			background-color: $secondary;
+			padding: 8px;
+			border-radius: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			svg {
+				color: white;
+			}
+		}
+	}
+}
+
+// SMALL SCREENS
+@media (min-width: 640px) {
+	.header {
+		&__logo {
+			flex-basis: 10%;
+			.dashboard__logo {
+				width: 144px;
+			}
+		}
+
+		&__search {
+			display: block;
+			&--form {
+				width: 300px;
+				input {
+					flex-basis: 70%;
+
+					&::placeholder {
+					}
+				}
+
+				button {
+					flex-basis: 20%;
+					img {
+					}
+				}
+			}
+		}
+
+		&__profile {
+			&--wrapper {
+			}
+
+			&--docs {
+			}
+
+			&--alert {
+				img {
+				}
+			}
+
+			&--container {
+				.header__profile__pic {
+					img {
+					}
+				}
+			}
+		}
+
+		&__menu--container {
+			button {
+				svg {
+				}
+			}
+		}
+	}
+}
+
+// LARGE SCREENS
+@media (min-width: 1024px) {
+	.header {
+		&__logo {
+			flex-basis: 20%;
+			.dashboard__logo {
+				width: 174px;
+			}
+		}
+
+		&__search {
+			margin-right: auto;
+			display: block;
+			&--form {
+				width: 400px;
+				input {
+					flex-basis: 85%;
+
+					&::placeholder {
+					}
+				}
+
+				button {
+					flex-basis: 15%;
+					img {
+					}
+				}
+			}
+		}
+
+		&__profile {
+			&--wrapper {
+				flex-basis: 22%;
+			}
+
+			&--docs {
+				display: block;
+			}
+
+			&--alert {
+				display: block;
+				img {
+				}
+			}
+
+			&--container {
+				.header__profile__pic {
+					img {
+					}
+				}
+			}
+		}
+
+		&__menu--container {
+			display: none;
+			button {
+				svg {
+				}
+			}
+		}
+	}
+}
+
+// EXTRA LARGE SCREENS
+@media (min-width: 1280px) {
+	.header {
+		&__logo {
+			flex-basis: 25%;
+			.dashboard__logo {
+			}
+		}
+
+		&__search {
+			&--form {
+				input {
+					&::placeholder {
+					}
+				}
+
+				button {
+					img {
+					}
+				}
+			}
+		}
+
+		&__profile {
+			&--wrapper {
+				flex-basis: 18%;
+			}
+
+			&--docs {
+				display: block;
+			}
+
+			&--alert {
+				display: block;
+				img {
+				}
+			}
+
+			&--container {
+				.header__profile__pic {
+					img {
+					}
+				}
+			}
+		}
+
+		&__menu--container {
+			button {
+				svg {
+				}
+			}
+		}
+	}
+}

@@ -153,3 +153,26 @@ export const sidebarLinks = [
 		],
 	},
 ];
+
+export const usersInfoCardDetails = [
+	{
+		imgURL: '/src/assets/dashboard/image/users (card).png',
+		title: 'Users',
+		total: 2453,
+	},
+	{
+		imgURL: '/src/assets/dashboard/image/active users (card).png',
+		title: 'Active users',
+		total: 2453,
+	},
+	{
+		imgURL: '/src/assets/dashboard/image/users with loans (card).png',
+		title: 'Users with loans',
+		total: 12453,
+	},
+	{
+		imgURL: '/src/assets/dashboard/image/users with savings (card).png',
+		title: 'Users with savings',
+		total: 102453,
+	},
+];

@@ -1,0 +1,206 @@
+.dashboard__table {
+	padding: 30px;
+	background-color: #fff;
+	table {
+		min-width: 1037px;
+		width: 100%;
+		// height: 640px;
+		min-height: max-content;
+		border-collapse: collapse;
+	}
+
+	tbody {
+		tr {
+			position: relative;
+
+			height: 60px;
+			border-bottom: 2px solid $fadedLine;
+		}
+	}
+
+	th {
+		font-size: 14px;
+		font-weight: 600;
+		border-bottom-width: 0;
+		text-align: left;
+		text-transform: uppercase;
+		padding: {
+			top: 16px;
+			bottom: 16px;
+		}
+		button {
+			background-color: transparent;
+			border: none;
+			padding: 3px;
+			cursor: pointer;
+			img {
+				width: 16px;
+				height: 16px;
+				margin-bottom: -5px;
+			}
+		}
+	}
+
+	td {
+		font-size: 14px;
+	}
+
+	// MODAL STYLE SPECIFICALLY FOR USERS FILTER PAGE
+	&--filter {
+		&__modal {
+			top: 90px;
+			width: 270px;
+			background-color: #fff;
+			box-shadow: 1px 1px 10px #0000003a;
+			border-radius: 4px;
+		}
+	}
+
+	// USERS FILTER MODAL STYLE STARTS HERE
+	.users-filter {
+		&__input--container {
+			margin: 20px 0;
+			input,
+			select {
+				height: 40px;
+				border-radius: 8px;
+				width: 100%;
+				color: $inputBorder;
+			}
+
+			select {
+				background-color: #ffffff;
+				border: 1px solid #ccc;
+				font-weight: 500;
+				font-size: 14px;
+				padding: 0 12px;
+				outline-color: $tertiary;
+				color: $inputBorder;
+			}
+
+			label {
+				color: $inputBorder;
+			}
+		}
+
+		&__btn--container {
+			margin: 20px 0;
+			display: flex;
+			justify-content: flex-start;
+			gap: 10%;
+			button {
+				padding: 10px 20px;
+				font-weight: 550;
+				color: #fff;
+				background-color: transparent;
+				cursor: pointer;
+			}
+			.reset__btn {
+				color: $inputBorder;
+				border: 2px solid $inputBorder;
+			}
+			.filter__btn {
+				background-color: $secondary;
+				border: 2px solid $secondary;
+			}
+		}
+	}
+	// USERS FILTER MODAL STYLE ENDS HERE
+
+	.users__action {
+		&--wrapper {
+			right: -30px;
+			top: 40px;
+			background-color: #fff;
+			box-shadow: 1px 1px 12px $fadedLine;
+			width: 180px;
+			height: 130px;
+			z-index: 10;
+			font-size: 14px;
+			padding: 5px 15px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 8px;
+		}
+
+		&--container {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+			flex-flow: column nowrap;
+
+			li {
+				padding: 9px 0;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+.table-responsive {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.table__pagination {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 24px 0;
+
+	&--size {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		p {
+			font-size: 14px;
+		}
+	}
+	&--select {
+		width: 70px;
+		height: 30px;
+		select {
+			width: 100%;
+			height: 100%;
+			border: none;
+			background-color: $fadetertiary;
+			border-radius: 4px;
+			font-size: 14px;
+			outline: none;
+		}
+	}
+	&--ctrl {
+		display: flex;
+		.btn {
+			width: 24px;
+			height: 24px;
+			border: none;
+			background-color: transparent;
+			// opacity: 0.6;
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+		&--nos {
+			button {
+				opacity: 0.6;
+				font-weight: 500;
+				cursor: pointer;
+			}
+
+			.active {
+				opacity: 1;
+				font-weight: 550;
+			}
+		}
+	}
+}

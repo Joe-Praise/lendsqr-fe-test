@@ -8,9 +8,9 @@ const Sidebar = ({ onOpenMenu }: { onOpenMenu: boolean }) => {
 	return (
 		<div className={`sidebar__wrapper scrollbar ${onOpenMenu ? 'active' : ''}`}>
 			<nav className='sidebar__nav'>
-				{sidebarLinks.map((group) => {
+				{sidebarLinks.map((group, index) => {
 					return (
-						<Fragment key={`${group.header}_group`}>
+						<Fragment key={`${group.header}_group${index}`}>
 							{group.header && group.children.length > 0 && (
 								<p className='sidebar__nav--group-header'>{group.header}</p>
 							)}

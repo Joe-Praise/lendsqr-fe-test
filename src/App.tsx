@@ -3,7 +3,7 @@ import { router } from './navigation';
 import { ToastContainer } from 'react-toastify';
 
 // import { ReactSession } from 'react-client-session';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/main.css';
 

@@ -25,6 +25,11 @@ h2 {
 	font-weight: 500;
 }
 
+h3 {
+	font-size: 22px;
+	font-weight: 500;
+}
+
 .logo {
 	&__container {
 		display: flex;
@@ -40,6 +45,22 @@ h2 {
 
 .flex {
 	display: flex;
+	align-items: center;
+}
+
+.bg-white {
+	background-color: #fff;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.gap_5 {
+	gap: 5px;
+}
+.gap_8 {
+	gap: 8px;
 }
 
 .flex-col {
@@ -56,4 +77,75 @@ h2 {
 
 .position-relative {
 	position: relative;
+}
+
+.spacer_10 {
+	margin: 10px 0px;
+}
+.spacer_20 {
+	margin: 20px 0px;
+}
+.spacer_30 {
+	margin: 30px 0px;
+}
+.spacer_40 {
+	margin: 40px 0px;
+}
+.spacer_50 {
+	margin: 50px 0px;
+}
+.spacer_60 {
+	margin: 60px 0px;
+}
+
+.margin_top_5 {
+	margin-top: 5px;
+}
+.margin_top_10 {
+	margin-top: 10px;
+}
+.margin_top_30 {
+	margin-top: 30px;
+}
+.margin_top_50 {
+	margin-top: 50px;
+}
+
+.align-middle {
+	text-align: center;
+}
+
+.app__badge {
+	border-radius: 30px;
+	background: transparent;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	align-items: flex-start;
+	font-size: 14px;
+	&--active {
+		background: $activeBg;
+		color: $active;
+		padding: 8px 10px;
+	}
+	&--pending {
+		background: $activeBg;
+		color: $active;
+		padding: 8px 10px;
+	}
+	&--inactive {
+		background: $inactiveBg;
+		color: $inactive;
+		padding: 8px 10px;
+	}
+	&--blacklisted {
+		background: $blacklistedBg;
+		color: $blacklisted;
+		padding: 8px 10px;
+	}
+}
+
+.ellipsis {
+	cursor: pointer;
 }

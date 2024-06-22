@@ -17,7 +17,7 @@ const Button = (props: IProps) => {
 	const {
 		value,
 		className,
-		isLoading = true,
+		isLoading = false,
 		href,
 		onClick,
 		variant = 'contained',

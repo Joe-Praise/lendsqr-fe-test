@@ -1,0 +1,10 @@
+.modal--container {
+	padding: 30px;
+	position: absolute;
+	&__active {
+		display: block;
+	}
+	&__inactive {
+		display: none;
+	}
+}

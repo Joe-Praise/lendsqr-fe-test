@@ -72,8 +72,6 @@ const Select = (props: IProps) => {
 							setLabel = JSON.stringify(item);
 						}
 
-						setLabel = item.length <= 0 ? 'Service' : item;
-
 						return (
 							<option value={setValue} key={JSON.stringify(item) + index}>
 								{setLabel}

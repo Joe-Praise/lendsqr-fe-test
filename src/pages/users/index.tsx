@@ -13,6 +13,8 @@ import FilterModal from '../../components/dashboard/filtermodal';
 import viewUser from '../../assets/dashboard/view eye.svg';
 import blacklistUser from '../../assets/dashboard/delete user.svg';
 import activateUser from '../../assets/dashboard/active user.svg';
+import Loader from '../../components/shared/loader';
+import { getUniqueOrganizations } from '../../services/helper';
 
 function paginate(array: any[], page_size = 10, page_number = 1) {
 	return array.slice((page_number - 1) * page_size, page_number * page_size);
@@ -82,7 +84,6 @@ function Ellipsis() {
 
 export enum SearchParams {
 	status = 'status',
-	// searchParams = 'searchParams',
 	organization = 'organization',
 	username = 'username',
 	email = 'email',
@@ -118,29 +119,25 @@ export const useSearchQueries = () => {
 const Page = () => {
 	const navigate = useNavigate();
 	const [, setSearchParams] = useSearchParams();
-	const [filterQueries, setFilterQueries] = useState({} as SearchParams);
-	// const [data, setData] = useState([] as UsersType[]);
-	// const [isLoading, setIsLoading] = useState(false);
+	const [filterQueries, setFilterQueries] = useState({
+		username: '',
+		organization: '',
+		status: '',
+		date: '',
+		email: '',
+		phone_number: '',
+	});
+
+	const [openMenu, setOpenMenu] = useState(false);
+	const [openAction, setOpenAction] = useState(false);
+	const [actionId, setActionId] = useState('');
 	const query = useSearchQueries();
 	const [pages, setPages] = useState<number[]>([]);
 	const [activePage, setActivePage] = useState(Number(query.pageNumber));
 
 	const pageCount = Number(query.totalPages);
 
-	// const [selectedItems, setSelectedItems] = useState([] as number[]);
-
 	const { data, isLoading } = queries.read({ query });
-	// const handleFilter = () => {
-	// 	setData(filteredData);
-	// 	setIsLoading(loading);
-	// };
-
-	useEffect(() => {
-		// const { data, isLoading: loading } = queries.read({ query });
-		// setFilteredData(data);
-		// setIsLoading(loading);
-		// handleFilter();
-	}, []);
 
 	const slicedData = paginate(
 		data,
@@ -185,10 +182,6 @@ const Page = () => {
 
 	useEffect(() => buildPages(), [activePage, buildPages]);
 
-	const [openMenu, setOpenMenu] = useState(false);
-	const [openAction, setOpenAction] = useState(false);
-	const [actionId, setActionId] = useState('');
-
 	const handleToggleMenu = () => {
 		setOpenMenu((prevState) => !prevState);
 	};
@@ -200,10 +193,25 @@ const Page = () => {
 			return;
 		}
 
-		// if (actionId !== String(item.id)) {
 		setActionId(String(item.id));
 		setOpenAction((prevState) => !prevState);
-		// }
+	};
+
+	const handleFilterSubmit = () => {
+		setSearchParams(filterQueries);
+		handleToggleMenu();
+		// console.log(new URLSearchParams(filterQueries).toString());
+	};
+
+	const handleRestFilters = () => {
+		setFilterQueries({
+			username: '',
+			organization: '',
+			status: '',
+			date: '',
+			email: '',
+			phone_number: '',
+		});
 	};
 
 	return (
@@ -280,12 +288,7 @@ const Page = () => {
 						<tbody>
 							{slicedData?.map((item) => {
 								return (
-									<tr
-										key={item.id}
-										// onClick={() =>
-										// 	navigate(`/dashboard/users/${String(item.id)}`)
-										// }
-									>
+									<tr key={item.id}>
 										<td className=''>{item.organization}</td>
 										<td className=''>{item.username}</td>
 										<td className=''>{item.email_address}</td>
@@ -305,7 +308,11 @@ const Page = () => {
 												openMenu={openAction}
 											>
 												<ul className='users__action--container'>
-													<li onClick={() => console.log(item.id)}>
+													<li
+														onClick={() =>
+															navigate(`/dashboard/users/${String(item.id)}`)
+														}
+													>
 														<img src={viewUser} alt='view user icon' />
 														<span>View Details</span>
 													</li>
@@ -337,8 +344,8 @@ const Page = () => {
 
 							{!slicedData?.length && isLoading && (
 								<tr>
-									<td className='' colSpan={8}>
-										Fetching data...
+									<td className='h-50' colSpan={8}>
+										<Loader />
 									</td>
 								</tr>
 							)}
@@ -353,20 +360,14 @@ const Page = () => {
 							<Select
 								className=''
 								label='Organization'
-								options={['', 'organization1', 'organization2']}
+								// placeholder='Organization'
+								options={getUniqueOrganizations(mock)}
 								onChange={(e) => {
-									// setFilterQueries(params=> {
-									// 	return {
-									// 		...params,
-
-									// 	}
-									// })
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.organization,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											organization: (e.target as any).value,
+										};
 									});
 								}}
 							/>
@@ -376,12 +377,11 @@ const Page = () => {
 								label='Username'
 								placeholder='User'
 								onChange={(e) => {
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.username,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											username: (e.target as any).value,
+										};
 									});
 								}}
 							/>
@@ -391,12 +391,11 @@ const Page = () => {
 								label='Email'
 								placeholder='Email'
 								onChange={(e) => {
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.email,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											email: (e.target as any).value,
+										};
 									});
 								}}
 							/>
@@ -406,13 +405,13 @@ const Page = () => {
 								label='Date'
 								type='date'
 								placeholder='Date'
+								className='date'
 								onChange={(e) => {
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.date,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											date: (e.target as any).value,
+										};
 									});
 								}}
 							/>
@@ -422,32 +421,30 @@ const Page = () => {
 								label='Phone Number'
 								placeholder='Phone Number'
 								onChange={(e) => {
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.phone_number,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											phone_number: (e.target as any).value,
+										};
 									});
 								}}
 							/>
 						</div>
 						<div className='users-filter__input--container'>
-							{/* <Select
+							<Select
 								options={options}
 								optionLabel='label'
 								optionValue='value'
 								label='Status'
 								onChange={(e) => {
-									setSearchParams((params) => {
-										params.set(
-											SearchParams.organization,
-											(e.target as any).value || ''
-										);
-										return params;
+									setFilterQueries((prev) => {
+										return {
+											...prev,
+											status: (e.target as any).value,
+										};
 									});
 								}}
-							/> */}
+							/>
 						</div>
 						<div className='users-filter__btn--container'>
 							<Button
@@ -455,12 +452,14 @@ const Page = () => {
 								value='Reset'
 								type='button'
 								className='border-radius_8 reset__btn'
+								onClick={handleRestFilters}
 							/>
 							<Button
 								isLoading={isLoading}
 								value='Filter'
 								type='button'
 								className='border-radius_8 filter__btn'
+								onClick={handleFilterSubmit}
 							/>
 						</div>
 					</FilterModal>
@@ -471,10 +470,7 @@ const Page = () => {
 				<div className='table__pagination'>
 					<div className='table__pagination--size '>
 						<p>Showing</p>
-						<Select
-							className='table__pagination--select'
-							options={['10', '20', '30']}
-						/>
+						<Select className='table__pagination--select' options={['10']} />
 						<p>out of {mock?.length}</p>
 					</div>
 
@@ -528,6 +524,7 @@ const Page = () => {
 							className='btn'
 							onClick={() => handlePage(activePage + 1)}
 							disabled={Number(query.pageNumber) >= Number(query.totalPages)}
+							data-testid='nextBtn'
 						>
 							<img src={nextbtn} alt='next button img' />
 						</button>

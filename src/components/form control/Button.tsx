@@ -1,6 +1,6 @@
-import { Loader } from 'lucide-react';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import BtnLoader from '../shared/btnloader';
 
 interface IProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
 	value?: string;
@@ -40,9 +40,9 @@ const Button = (props: IProps) => {
 
 	const spinner = (
 		<div className='flex justify-center items-center absolute w-full'>
-			<Loader className='animate-spin h-7 w-7' role='status'>
+			<BtnLoader>
 				<span className='sr-only'>Loading...</span>
-			</Loader>
+			</BtnLoader>
 		</div>
 	);
 

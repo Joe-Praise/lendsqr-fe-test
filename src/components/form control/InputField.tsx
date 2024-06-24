@@ -30,12 +30,12 @@ const InputField = (props: IProps) => {
 				className || ''
 			}`}
 		>
-			<div className='flex flex-col'>
+			<div className='position-relative'>
 				<RenderIf condition={!!label}>
 					<label htmlFor={id}>{label}</label>
 				</RenderIf>
 
-				<div className='position-relative'>
+				<div className=''>
 					<input
 						{...{
 							...restProps,

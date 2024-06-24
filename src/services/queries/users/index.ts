@@ -4,6 +4,7 @@ import queryKey from './keys';
 import { UsersResponse, UsersType } from './types';
 import config from '../../../config';
 import mock from './mock.json';
+import { saveLocalStorage } from '../../helper';
 
 const BASE_URL = '/users';
 
@@ -80,17 +81,15 @@ const readFn = async (query: Query) => {
 const readOneFn = async (id: string) => {
 	const url = `${BASE_URL}`;
 
-	let data = mock;
-
-	if (id) {
-		data = data.filter((item) => String(item.id) === id);
-	}
+	const data = mock.find((item) => String(item.id) === id);
 
 	const promise = new Promise((resolve) => {
 		setTimeout(() => {
 			resolve('Success!');
 		}, 1000);
 	});
+
+	saveLocalStorage(data, 'userDetail');
 
 	try {
 		await promise;
@@ -128,10 +127,9 @@ const useReadOne = (id: string) => {
 		onError: () => {},
 	});
 
-	// console.log('from query', response);
 	return {
 		...response,
-		data: (response.data?.data || {}) as UsersType,
+		data: response.data?.data as UsersType | undefined,
 	};
 };
 

@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import SignInBannerSvg from '../../assets/auth/pablo-sign-in 1.svg';
 import { Logo } from '../../components/svg';
 import { Button, InputField } from '../../components/form control';
+import queries from '../../services/queries/auth';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -17,10 +18,9 @@ const initialValues = {
 };
 
 const Page = () => {
-	// const { mutate, isLoading } = queries.login();
+	const { mutate, isLoading } = queries.login();
 
 	// TODO: FIX UP ISLOADING TO ACTUAL STATE
-	const isLoading = false;
 	return (
 		<section className='signin-container'>
 			<div className='signin-container__banner--background'>
@@ -39,8 +39,7 @@ const Page = () => {
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
-					// onSubmit={mutate}
-					onSubmit={() => console.log('form submitted')}
+					onSubmit={mutate}
 				>
 					{(props) => {
 						const {
@@ -53,25 +52,24 @@ const Page = () => {
 						} = props;
 						return (
 							<form className='app__login-form' onSubmit={handleSubmit}>
-								<InputField
-									name='email'
-									type='email'
-									id='email'
-									placeholder='Email'
-									value={values.email}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									errors={errors}
-									touched={touched}
-								/>
-
 								<div className='app__login_form__password'>
+									<InputField
+										name='email'
+										type='email'
+										id='email'
+										placeholder='Email'
+										value={values.email}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+									/>
+
 									<InputField
 										name='password'
 										id='password'
 										type='password'
 										placeholder='Password'
-										// label='Password'
 										onChange={handleChange}
 										onBlur={handleBlur}
 										errors={errors}

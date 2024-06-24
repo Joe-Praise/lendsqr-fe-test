@@ -1,1 +1,291 @@
+.user-details {
+	&__go-back--btn {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		span {
+			font-size: 16px;
+			color: $tertiary;
+		}
+	}
+	&__action {
+		&--container {
+			display: flex;
+			align-items: flex-start;
+			justify-content: flex-start;
+			flex-flow: column;
+		}
 
+		&--btn-container {
+			display: flex;
+			gap: 15px;
+			margin-top: 1.5rem;
+
+			button {
+				width: 170px;
+				height: 40px;
+				border-radius: 8px;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				border: 2px solid;
+				font-weight: 550;
+				background-color: transparent;
+				cursor: pointer;
+			}
+
+			.blacklist {
+				color: $blacklisted;
+				border-color: $blacklisted;
+			}
+			.activate {
+				color: $active;
+				border-color: $active;
+			}
+		}
+	}
+
+	&__header {
+		display: flex;
+		align-items: center;
+		flex-flow: column;
+		gap: 3%;
+
+		&--img-container {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background-color: $fadedLine;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			img {
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		&--name-container {
+			height: 100%;
+			margin: 5px;
+			text-align: center;
+			p {
+				font-size: 14px;
+			}
+		}
+
+		&--tier-container {
+			position: relative;
+			text-align: center;
+			flex-basis: 12%;
+			&::before,
+			&::after {
+				// content: '';
+				position: absolute;
+				height: 100%;
+				width: 2px;
+				background-color: #545f7d2d;
+				top: 0;
+			}
+
+			&::before {
+				left: 0;
+			}
+			&::after {
+				right: 0;
+				width: 1px;
+			}
+		}
+
+		&--finance-container {
+			text-align: center;
+			p {
+				font-size: 12px;
+			}
+		}
+
+		&--tab-container {
+			margin-top: 30px;
+			display: flex;
+			justify-content: space-between;
+			gap: 2%;
+			max-width: 500%;
+			// width: max-content;
+			overflow-x: auto;
+
+			button {
+				background-color: transparent;
+				white-space: nowrap;
+				flex-basis: 50%;
+				font-size: 16px;
+				border: none;
+				cursor: pointer;
+				padding: 10px;
+			}
+
+			&__active {
+				color: $secondary;
+				text-decoration: underline;
+				text-underline-offset: 9px;
+			}
+		}
+	}
+
+	&__info {
+		&--wrapper {
+			padding: {
+				top: 20px;
+				bottom: 12px;
+			}
+			&.underline {
+				border-bottom: 2px solid $fadedLine;
+			}
+		}
+		&--container {
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-start;
+			flex-flow: column;
+			gap: 2%;
+			&__card {
+				flex-basis: 18.4%;
+				margin: 20px 0;
+			}
+			&__personal-card {
+				flex-basis: 18.4%;
+				margin: 15px 0;
+			}
+			&__education-card {
+				flex-basis: 29%;
+				margin: 15px 0;
+			}
+		}
+	}
+}
+
+.white__bg {
+	padding: {
+		top: 25px;
+		left: 25px;
+		right: 25px;
+	}
+	border-radius: 8px;
+	background-color: #fff;
+}
+
+.info__bold {
+	font-weight: 550;
+}
+
+.gold__fill {
+	fill: $gold;
+}
+
+// SMALL SCREENS
+@media (min-width: 640px) {
+	.user-details {
+		&__go-back--btn {
+			span {
+			}
+		}
+		&__action {
+			&--container {
+				align-items: center;
+				justify-content: space-between;
+				flex-flow: row;
+			}
+
+			&--btn-container {
+				margin-top: 0;
+
+				button {
+				}
+
+				.blacklist {
+				}
+				.activate {
+				}
+			}
+		}
+
+		&__header {
+			display: flex;
+			align-items: center;
+			flex-flow: row;
+			gap: 3%;
+
+			&--img-container {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				background-color: $fadedLine;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				img {
+					width: 40px;
+					height: 40px;
+				}
+			}
+
+			&--name-container {
+				text-align: left;
+				p {
+				}
+			}
+
+			&--tier-container {
+				flex-basis: 18%;
+				&::before,
+				&::after {
+					content: '';
+				}
+
+				&::before {
+				}
+				&::after {
+				}
+			}
+
+			&--finance-container {
+				p {
+				}
+			}
+
+			&--tab-container {
+				gap: 3%;
+				button {
+					flex: 15%;
+				}
+
+				&__active {
+				}
+			}
+		}
+
+		&__info {
+			&--wrapper {
+				padding: {
+				}
+				&.underline {
+				}
+			}
+			&--container {
+				align-items: flex-start;
+				flex-flow: row wrap;
+
+				&__card {
+				}
+				&__personal-card {
+					flex-basis: 16%;
+					// border: 2px solid;
+				}
+				&__education-card {
+					flex-basis: 20%;
+				}
+			}
+		}
+	}
+}

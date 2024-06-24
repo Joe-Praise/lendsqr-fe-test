@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { RenderIf } from '../shared';
-// import { Eye, EyeOff } from '../svg';
 
 interface IProps extends React.HTMLProps<HTMLInputElement> {
 	type?: React.HTMLInputTypeAttribute;

@@ -31,10 +31,10 @@ const useCreate = (options = {}) => {
 		{
 			mutationKey: [queryKey.create],
 			...options,
-			onSuccess: (response: any) => {
+			onSuccess: () => {
 				successToast('Registration successful');
 			},
-			onError: (err: any) => {
+			onError: () => {
 				successToast('Registration successful');
 			},
 		}

@@ -1,4 +1,3 @@
-// import { formatAmount } from '../../lib/utils';
 import CountUp from 'react-countup';
 const InfoCard = ({
 	imgURL,
@@ -26,7 +25,6 @@ const InfoCard = ({
 					preserveValue={true}
 				/>
 			</p>
-			{/* <p className='info-card__total'>{formatAmount(total)}</p> */}
 		</div>
 	);
 };

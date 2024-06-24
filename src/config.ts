@@ -8,11 +8,11 @@
 
 const dev = {
 	feUrl: 'http://localhost:3000',
-	// baseUrl: '', // https://mock.com/api/v1
+	baseUrl: '', // https://mock.com/api/v1
 };
 
 const staging = {
-	feUrl: 'https://praise-joseph-alimi-lendsqr-fe-test.vercel.app.',
+	feUrl: 'https://praise-joseph-alimi-lendsqr-fe-test.onrender.com',
 	baseUrl: '', // https://mock.com/api/v1
 };
 

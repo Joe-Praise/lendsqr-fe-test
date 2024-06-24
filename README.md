@@ -2,29 +2,20 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Praise Joseph Alimi
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a test project for the position of a frontend developer at Lendsqr.
 
-## Expanding the ESLint configuration
+Stack and tools used: React Vite, Typescript, Scss, React Query, axios, Formik, React-countup, React-toastify, yup, vitest, jsdom, and jest.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+I thought of the best way to carry out authentication, filtering and data storage and decided for:
 
-- Configure the top-level `parserOptions` property like this:
+- Authentication: Formik and yup were perfect for the signup form
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Table filtering: useSearchParams along with some custom hooks and URL SearchParams made filtering smooth like butter on ice. this made it possible to presist filters by saving it in the URL. with this a user can share a filter url and someone else can have access to that same filter result.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+-Storage: i used session storage for user credentials and local storage for user details page
+
+-styling: i made use of BEM methodology as it goes smoothly with scss
+
+[portfolio website](https://josephpraise.vercel.app/)

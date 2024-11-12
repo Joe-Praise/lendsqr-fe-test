@@ -102,8 +102,10 @@ const useLogin = (options = {}) => {
       console.log('body', body);
       if (body.email.length === 0 || body.password.length === 0) {
         errorToast('Please enter your email and password');
+        return;
       } else {
         handleLogin();
+        saveSessionStorage(body.email, 'email');
       }
       //   mutate({ url: `${BASE_URL}/login`, body, auth: false }),
     },

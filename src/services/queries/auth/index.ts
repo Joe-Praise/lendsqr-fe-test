@@ -61,7 +61,7 @@ const useLogin = (options = {}) => {
 
   const handleLogin = () => {
     successToast('Sign in successful');
-    setTimeout(() => navigate(routes.dashboard.users.path), 1000);
+    navigate(routes.dashboard.users.path);
   };
 
   const { isLoading, data, isSuccess } = useMutation(

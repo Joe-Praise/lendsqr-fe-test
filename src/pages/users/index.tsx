@@ -1,11 +1,5 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  lazy,
-  Suspense,
-} from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import CardContainer from '../../components/dashboard/cardcontainer';
 import { Spacer } from '../../components/shared';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import config from '../../config';
@@ -15,18 +9,12 @@ import mock from '../../services/queries/users/mock.json';
 import queries from '../../services/queries/users';
 import prevbtn from '/assets/dashboard/image/prev btn.png';
 import nextbtn from '/assets/dashboard/image/next btn.png';
+import FilterModal from '../../components/dashboard/filtermodal';
 import viewUser from '/assets/dashboard/view eye.svg';
 import blacklistUser from '/assets/dashboard/delete user.svg';
 import activateUser from '/assets/dashboard/active user.svg';
-import { getUniqueOrganizations } from '../../services/helper';
-
-const CardContainer = lazy(
-  () => import('../../components/dashboard/cardcontainer')
-);
-const FilterModal = lazy(
-  () => import('../../components/dashboard/filtermodal')
-);
-const Loader = lazy(() => import('../../components/shared/loader'));
+import Loader from '../../components/shared/loader';
+import { cleanObject, getUniqueOrganizations } from '../../services/helper';
 
 function paginate(array: any[], page_size = 10, page_number = 1) {
   return array.slice((page_number - 1) * page_size, page_number * page_size);
@@ -108,24 +96,23 @@ export enum SearchParams {
 
 export const useSearchQueries = () => {
   const [searchParams] = useSearchParams();
-
-  return useMemo(
-    () => ({
-      status: searchParams.get(SearchParams.status) || undefined,
-      organization: searchParams.get(SearchParams.organization) || undefined,
-      username: searchParams.get(SearchParams.username) || undefined,
-      date: searchParams.get(SearchParams.date) || undefined,
-      email: searchParams.get(SearchParams.email) || undefined,
-      phone_number: searchParams.get(SearchParams.phone_number) || undefined,
+  return useMemo(() => {
+    const params = {
+      status: searchParams.get(SearchParams.status) || null,
+      organization: searchParams.get(SearchParams.organization) || null,
+      username: searchParams.get(SearchParams.username) || null,
+      date: searchParams.get(SearchParams.date) || null,
+      email: searchParams.get(SearchParams.email) || null,
+      phone_number: searchParams.get(SearchParams.phone_number) || null,
       pageNumber:
         searchParams.get(SearchParams.pageNumber) ||
         config.queryArgs.pageNumber,
       pageSize:
         searchParams.get(SearchParams.pageSize) || config.queryArgs.pageSize,
       totalPages: mock.length / config.queryArgs.pageSize,
-    }),
-    [searchParams]
-  );
+    };
+    return cleanObject(params);
+  }, [searchParams]);
 };
 
 const Page = () => {
@@ -231,9 +218,7 @@ const Page = () => {
       <h2>Users</h2>
 
       <Spacer className='spacer_50'>
-        <Suspense fallback={<div>Loading...</div>}>
-          <CardContainer />
-        </Suspense>
+        <CardContainer />
       </Spacer>
 
       <Spacer className='spacer_30 position-relative'>
@@ -317,37 +302,32 @@ const Page = () => {
                       <Ellipsis />
                     </td>
                     {actionId === String(item.id) && (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <FilterModal
-                          className='users__action--wrapper'
-                          openMenu={openAction}
-                        >
-                          <ul className='users__action--container'>
-                            <li
-                              onClick={() =>
-                                navigate(`/dashboard/users/${String(item.id)}`)
-                              }
-                            >
-                              <img src={viewUser} alt='view user icon' />
-                              <span>View Details</span>
-                            </li>
-                            <li>
-                              <img
-                                src={blacklistUser}
-                                alt='blacklist user icon'
-                              />
-                              <span>Blacklist User</span>
-                            </li>
-                            <li>
-                              <img
-                                src={activateUser}
-                                alt='activate user icon'
-                              />
-                              <span>Activate User</span>
-                            </li>
-                          </ul>
-                        </FilterModal>
-                      </Suspense>
+                      <FilterModal
+                        className='users__action--wrapper'
+                        openMenu={openAction}
+                      >
+                        <ul className='users__action--container'>
+                          <li
+                            onClick={() =>
+                              navigate(`/dashboard/users/${String(item.id)}`)
+                            }
+                          >
+                            <img src={viewUser} alt='view user icon' />
+                            <span>View Details</span>
+                          </li>
+                          <li>
+                            <img
+                              src={blacklistUser}
+                              alt='blacklist user icon'
+                            />
+                            <span>Blacklist User</span>
+                          </li>
+                          <li>
+                            <img src={activateUser} alt='activate user icon' />
+                            <span>Activate User</span>
+                          </li>
+                        </ul>
+                      </FilterModal>
                     )}
                   </tr>
                 );
@@ -364,128 +344,124 @@ const Page = () => {
               {!slicedData?.length && isLoading && (
                 <tr>
                   <td className='h-50' colSpan={8}>
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <Loader />
-                    </Suspense>
+                    <Loader />
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
           {/* FILTER TABLE MODAL STARTS HERE */}
-          <Suspense fallback={<div>Loading...</div>}>
-            <FilterModal
-              openMenu={openMenu}
-              className='dashboard__table--filter__modal'
-            >
-              <div className='users-filter__input--container'>
-                <Select
-                  className=''
-                  label='Organization'
-                  // placeholder='Organization'
-                  options={getUniqueOrganizations(mock)}
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        organization: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__input--container'>
-                <InputField
-                  label='Username'
-                  placeholder='User'
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        username: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__input--container'>
-                <InputField
-                  label='Email'
-                  placeholder='Email'
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        email: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__input--container'>
-                <InputField
-                  label='Date'
-                  type='date'
-                  placeholder='Date'
-                  className='date'
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        date: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__input--container'>
-                <InputField
-                  label='Phone Number'
-                  placeholder='Phone Number'
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        phone_number: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__input--container'>
-                <Select
-                  options={options}
-                  optionLabel='label'
-                  optionValue='value'
-                  label='Status'
-                  onChange={(e) => {
-                    setFilterQueries((prev) => {
-                      return {
-                        ...prev,
-                        status: (e.target as any).value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-              <div className='users-filter__btn--container'>
-                <Button
-                  isLoading={isLoading}
-                  value='Reset'
-                  type='button'
-                  className='border-radius_8 reset__btn'
-                  onClick={handleRestFilters}
-                />
-                <Button
-                  isLoading={isLoading}
-                  value='Filter'
-                  type='button'
-                  className='border-radius_8 filter__btn'
-                  onClick={handleFilterSubmit}
-                />
-              </div>
-            </FilterModal>
-          </Suspense>
+          <FilterModal
+            openMenu={openMenu}
+            className='dashboard__table--filter__modal'
+          >
+            <div className='users-filter__input--container'>
+              <Select
+                className=''
+                label='Organization'
+                // placeholder='Organization'
+                options={getUniqueOrganizations(mock)}
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      organization: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__input--container'>
+              <InputField
+                label='Username'
+                placeholder='User'
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      username: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__input--container'>
+              <InputField
+                label='Email'
+                placeholder='Email'
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      email: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__input--container'>
+              <InputField
+                label='Date'
+                type='date'
+                placeholder='Date'
+                className='date'
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      date: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__input--container'>
+              <InputField
+                label='Phone Number'
+                placeholder='Phone Number'
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      phone_number: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__input--container'>
+              <Select
+                options={options}
+                optionLabel='label'
+                optionValue='value'
+                label='Status'
+                onChange={(e) => {
+                  setFilterQueries((prev) => {
+                    return {
+                      ...prev,
+                      status: (e.target as any).value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div className='users-filter__btn--container'>
+              <Button
+                isLoading={isLoading}
+                value='Reset'
+                type='button'
+                className='border-radius_8 reset__btn'
+                onClick={handleRestFilters}
+              />
+              <Button
+                isLoading={isLoading}
+                value='Filter'
+                type='button'
+                className='border-radius_8 filter__btn'
+                onClick={handleFilterSubmit}
+              />
+            </div>
+          </FilterModal>
           {/* FILTER TABLE MODAL ENDS HERE */}
         </div>
         {/* PAGINATION STARTS HERE */}

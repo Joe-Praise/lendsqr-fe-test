@@ -8,7 +8,7 @@
 
 const dev = {
 	feUrl: 'http://localhost:3000',
-	baseUrl: '', // https://mock.com/api/v1
+	baseUrl: 'https://praise-joseph-alimi-lendsqr-fe-test.onrender.com', // https://mock.com/api/v1
 };
 
 const staging = {
